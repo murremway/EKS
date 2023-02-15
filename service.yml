@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc1
+  name: appname
   labels:
-    app: app-v1
+    app: appname
 spec:
   ports:
-  - port: 8080
+  - port: 80
     nodePort: 32000
     protocol: TCP
   selector:
-    app: app-v1
+    app: appname
   type: NodePort

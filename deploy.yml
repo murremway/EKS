@@ -1,33 +1,35 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deploy1
+  name: appname
   labels:
-    app: app-v1
+    app: appname
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: app-v1
+      app: appname
   template:
     metadata:
       labels:
-        app: app-v1
+        app: appname
     spec:
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: beta.kubernetes.io/arch
+              - key: kubernetes.io/arch
                 operator: In
                 values:
                 - amd64
                 - arm64
       containers:
-      - name: deploy-images
-        image: murremway/deploy-images
+      - name: appname
+        image: username/appname
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
-        - containerPort: 8080
-
+        - containerPort: 80

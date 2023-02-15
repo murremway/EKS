@@ -1,11 +1,10 @@
-
-
 resource "aws_eks_cluster" "aws_eks" {
-  name     = "eks_cluster_remzy"
+  name     = "remzy"
   role_arn = aws_iam_role.eks_cluster.arn
 
   vpc_config {
-    subnet_ids = module.vpc.public_subnets
+    security_group_ids = [aws_security_group.eks-master-sg.id]
+    subnet_ids = var.subnet_id
   }
 
   depends_on = [
@@ -14,21 +13,31 @@ resource "aws_eks_cluster" "aws_eks" {
   ]
 
   tags = {
-    Name = "EKS_Cluster_remzy"
+    Name = "remzy"
   }
 }
 
-resource "aws_eks_node_group" "node" {
+resource "aws_eks_node_group" "remzo" {
   cluster_name    = aws_eks_cluster.aws_eks.name
-  node_group_name = "node_remzy"
+  node_group_name = "remzo"
   node_role_arn   = aws_iam_role.eks_nodes.arn
-  subnet_ids      = module.vpc.public_subnets
+  subnet_ids      = var.subnet_id
 
   scaling_config {
     desired_size = 1
-    max_size     = 1
+    max_size     = 10
     min_size     = 1
   }
+
+
+  labels = {
+    create_before_destroy = true
+  }
+  remote_access {
+    ec2_ssh_key               = var.keypair-name
+    source_security_group_ids = [aws_security_group.eks-node-sg.id]
+  }
+  
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
