@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appname
+  name: jackpiro
   labels:
-    app: appname
+    app: jackpiro
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: appname
+      app: jackpiro
   template:
     metadata:
       labels:
-        app: appname
+        app: jackpiro
     spec:
       affinity:
         nodeAffinity:
@@ -25,8 +25,8 @@ spec:
                 - amd64
                 - arm64
       containers:
-      - name: appname
-        image: username/appname
+      - name: jackpiro
+        image: murremway/jackpiro
         resources:
           limits:
             memory: "128Mi"
