@@ -23,7 +23,6 @@ jobs:
       - name: Configure kubectl
         run: |
           aws eks update-kubeconfig --name remzy --region us-east-1
-          kubectl config use-context remzy
 
       - name: Deploy to Kubernetes
         run: kubectl apply -f deploy.yml
