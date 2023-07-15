@@ -34,7 +34,7 @@ jobs:
         run: kubectl apply -f deploy.yml
 
       - name: Deploy Service to Cluster 
-        run: Kubectl apply -f service.yml
+        run: kubectl apply -f service.yml
       
       - name: Deploy Grafana Dashboard
         run: kubectl create -f manifests/setup
