@@ -37,7 +37,7 @@ jobs:
         run: kubectl apply -f service.yml
       
       - name: Deploy Grafana Dashboard
-        run: kubectl create -f manifests/setup
+        run: kubectl create -f kube-prometheus/manifests/setup
 
       - name: Deploy manifests/setup
-        run: kubectl create -f manifests/
+        run: kubectl create -f kube-prometheus/manifests/
