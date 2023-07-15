@@ -10,7 +10,6 @@ metadata:
   namespace: monitoring
 spec:
   type: NodePort
-  clusterIP: None
   ports:
   - name: https
     port: 9100
